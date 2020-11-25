@@ -1,4 +1,8 @@
 cmake-build-debug
-CMakeLists.txt
 tests
+CMakeLists.txt
 code_files_16.zip
+c.out
+matmult.out
+Threads Lab Report.pdf
+.idea

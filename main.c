@@ -191,7 +191,16 @@ void thread_for_row(int **a, int **b, int **c) {
             fprintf(stderr, "ERROR; return code from pthread_create() is %d\n", rc);
             exit(-1);
         }
+    }
+
+    // Join threads
+    for (int i = 0; i < a_row; ++i) {
         pthread_join(threads[i], NULL);
+
+        if (rc) {   // Check if thread is not joined
+            fprintf(stderr, "ERROR; return code from pthread_join() is %d\n", rc);
+            exit(-1);
+        }
     }
     printf("Thread for each row method: \nNumber of threads: %d\n", a_row);
 }
@@ -211,7 +220,18 @@ void thread_for_element(int **a, int **b, int **c) {
                 fprintf(stderr, "ERROR; return code from pthread_create() is %d\n", rc);
                 exit(-1);
             }
+        }
+    }
+
+    // Join threads
+    for (int i = 0; i < a_row; ++i) {
+        for (int j = 0; j < b_col; ++j) {
             pthread_join(threads[i * b_col + j], NULL);
+
+            if (rc) {   // Check if thread is not joined
+                fprintf(stderr, "ERROR; return code from pthread_join() is %d\n", rc);
+                exit(-1);
+            }
         }
     }
     printf("Thread for each element method: \nNumber of threads: %d\n", a_row * b_col);
